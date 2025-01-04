@@ -1,4 +1,3 @@
-
 from Terrain import Terrain, Case
 from StrategieReseau import StrategieReseau, StrategieReseauAuto
 
@@ -34,19 +33,42 @@ class Reseau:
         self.strat = strat
 
     def valider_reseau(self) -> bool:
-        # TODO
-        return False
+        # Implémentation : Vérifier que chaque noeud est relié directement ou indirectement à l'entrée
+        if self.noeud_entree == -1:
+            return False
+
+        visited = set()
+        stack = [self.noeud_entree]
+
+        while stack:
+            current = stack.pop()
+            if current not in visited:
+                visited.add(current)
+                for arc in self.arcs:
+                    if arc[0] == current and arc[1] not in visited:
+                        stack.append(arc[1])
+                    elif arc[1] == current and arc[0] not in visited:
+                        stack.append(arc[0])
+
+        return len(visited) == len(self.noeuds)
 
     def valider_distribution(self, t: Terrain) -> bool:
-        # TODO
-        return False
+     
+        clients = t.get_clients()
+        client_positions = set(clients)
+        connected_positions = {self.noeuds[n] for n in self.noeuds}
+
+        return client_positions.issubset(connected_positions)
 
     def configurer(self, t: Terrain):
         self.noeud_entree, self.noeuds, self.arcs  = self.strat.configurer(t)
 
     def afficher(self) -> None:
-        # TODO
-        pass
+        # Implémentation d'un affichage ASCII simple
+        for n, coords in self.noeuds.items():
+            print(f"Noeud {n}: {coords}")
+        for arc in self.arcs:
+            print(f"Arc: {arc}")
 
     def afficher_avec_terrain(self, t: Terrain) -> None:
         for ligne, l in enumerate(t.cases):
@@ -54,22 +76,22 @@ class Reseau:
                 if (ligne, colonne) not in self.noeuds.values():
                     if c == Case.OBSTACLE:
                         print("X", end="")
-                    if c == Case.CLIENT:
+                    elif c == Case.CLIENT:
                         print("C", end="")
-                    if c == Case.VIDE:
+                    elif c == Case.VIDE:
                         print("~", end="")
-                    if c == Case.ENTREE:
+                    elif c == Case.ENTREE:
                         print("E", end="")
                     else:
                         print(" ", end="")
                 else:
                     if c == Case.OBSTACLE:
                         print("T", end="")
-                    if c == Case.CLIENT:
+                    elif c == Case.CLIENT:
                         print("C", end="")
-                    if c == Case.VIDE:
+                    elif c == Case.VIDE:
                         print("+", end="")
-                    if c == Case.ENTREE:
+                    elif c == Case.ENTREE:
                         print("E", end="")
                     else:
                         print(" ", end="")
@@ -85,4 +107,3 @@ class Reseau:
             else:
                 cout += 1
         return cout
-

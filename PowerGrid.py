@@ -1,15 +1,17 @@
-
 from Terrain import Terrain
 from Reseau import Reseau
 
 from StrategieReseau import StrategieReseauManuelle
 
 if __name__ == "__main__":
+    # Demande à l'utilisateur de choisir un terrain
+    choix_terrain = input("Choisissez un terrain (t1 ou t2) : ").strip()
+    fichier_terrain = "terrains/t1.txt" if choix_terrain == "t1" else "terrains/t2.txt"
 
     reseau = Reseau()
 
     terrain = Terrain()
-    terrain.charger("terrains/t1.txt")
+    terrain.charger(fichier_terrain)
     print("Terrain chargé :")
     terrain.afficher()
 
@@ -31,5 +33,3 @@ if __name__ == "__main__":
         reseau.afficher_avec_terrain(terrain)
     else:
         print("Pas de configuration valide optimale trouvée.")
-
-

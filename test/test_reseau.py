@@ -1,4 +1,3 @@
-
 import unittest
 import xmlrunner
 
@@ -8,16 +7,26 @@ from Terrain import Terrain, Case
 class TestReseau(unittest.TestCase):
 
     def test_definition_entree(self):
-        # TODO
-        self.fail()
+        r = Reseau()
+        r.noeuds = {0: (0, 0), 1: (1, 1)}
+        r.definir_entree(0)
+        self.assertEqual(r.noeud_entree, 0)
+        r.definir_entree(2)
+        self.assertEqual(r.noeud_entree, -1)
 
     def test_ajout_noeud(self):
-        # TODO
-        self.fail()
+        r = Reseau()
+        r.ajouter_noeud(0, (0, 0))
+        self.assertIn(0, r.noeuds)
+        self.assertEqual(r.noeuds[0], (0, 0))
 
     def test_ajout_arc(self):
-        # TODO
-        self.fail()
+        r = Reseau()
+        r.noeuds = {0: (0, 0), 1: (1, 1)}
+        r.ajouter_arc(0, 1)
+        self.assertIn((0, 1), r.arcs)
+        r.ajouter_arc(1, 0)  # Test de symétrie
+        self.assertIn((0, 1), r.arcs)
 
     def test_validation_correcte(self):
         r = Reseau()
@@ -108,4 +117,3 @@ class TestReseau(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(testRunner=xmlrunner.XMLTestRunner(output="test-reports"))
-
