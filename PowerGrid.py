@@ -4,7 +4,7 @@ from Reseau import Reseau
 from StrategieReseau import StrategieReseauManuelle
 
 if __name__ == "__main__":
-    # Demande à l'utilisateur de choisir un terrain
+    #  Demande à l'utilisateur de choisir un terrain
     choix_terrain = input("Choisissez un terrain (t1 ou t2) : ").strip()
     fichier_terrain = "terrains/t1.txt" if choix_terrain == "t1" else "terrains/t2.txt"
 
