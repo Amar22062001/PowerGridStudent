@@ -44,5 +44,5 @@ class TestTerrain(unittest.TestCase):
         self.assertEqual(t[0][1], Case.VIDE)
         self.assertEqual(t[1][2], Case.CLIENT)
 
-if name == "main":
+if __name__ == "__main__":
     unittest.main(testRunner=xmlrunner.XMLTestRunner(output="test-reports"))
